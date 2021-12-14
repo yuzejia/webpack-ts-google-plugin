@@ -1,6 +1,9 @@
 # webpack-ts-google-plugin
 
 webpack5+ts+eslint 构建google-plugin
++ ts 
++ less
++ jquery
 
 ### chrome Api ts 类型库
 https://www.npmjs.com/package/@types/chrome 
@@ -49,4 +52,23 @@ manifest.json
         ...
     }]
 }
+```
+
+### jquery的使用
+项目中初始了npm Jquery [https://www.npmjs.com/package/jquery](https://www.npmjs.com/package/jquery)
+
+```
+npm i jquery --save-dev
+```
+
+**由于项目是ts 开发 需要安装 @types/jquery**
+
+[https://www.npmjs.com/package/@types/jquery](https://www.npmjs.com/package/@types/jquery)
+```
+npm install --save @types/jquery
+```
+
+**ts 文件中引用**
+```ts
+import $ from "jquery";
 ```

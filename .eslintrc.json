@@ -18,6 +18,7 @@
     "rules": {
         "no-extra-semi": "off",
         "semi": ["error", "never"],
-        "quotes": ["error", "double"]
+        "quotes": ["error", "double"],
+        "no-empty-function": "off"
     }
 }

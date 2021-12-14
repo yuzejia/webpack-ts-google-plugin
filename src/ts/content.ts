@@ -1,12 +1,20 @@
-import Info from "@/enum/en"
 import Message from "./message"
+import $ from "jquery"
+new Message().setMsg("start", { c: 111 })
 
-new Message().setMsg("start", {c:111})
+class ContentClass {
+
+    constructor() {
+        this.init()
+    }
+
+    init(): void {
+        console.log("jquey init success ---", $)
+        console.log($("#kw"))
 
 
-function name(params:Info): void {
-    console.log(params)
-    
+    }
 }
 
-name({name: "yuzejia11"})
+
+new ContentClass()

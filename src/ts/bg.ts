@@ -1,40 +1,40 @@
-console.log("bg- init ~")
-interface SendResponse<T> {
-    (s: T): void
-}
+import Baseinterface from "@/enum/base-interface"
+import BaseClass from "./base"
+import bgExtCLass from "./bg-ext"
 
-class BgClass {
+class BgClass extends BaseClass implements  Baseinterface {
 
     constructor() {
-        this.onMessage()
+        super()
         this.init()
     }
 
-    onMessage() {
-        chrome.runtime.onMessage.addListener(function (request: {message: string}, sender: unknown, sendResponse: SendResponse<number | string>) {
-            console.log(request)
-            
-            // 监听 content 页面打开 信息通知
-            if (request.message == "start") {
-                console.log("start success ---")
-                sendResponse(1111)
-            }
-        
-        
 
-        
-        })
-    }
 
     init() {
         console.log("bg- init success ~~~")
-        chrome.tabs.query({}, (tabs: Array<object>) => {
-         console.log(tabs)
-         console.log(111222)
-         
+        bgExtCLass.getInstance().init()
+        chrome.tabs.query({}, (result: chrome.tabs.Tab[]): void => {
+         console.log(result[0].id)
         })
         
     }
+
+    addListener(request: {message: string}, sender: unknown, sendResponse:  (response: unknown) => void) {
+        if(request.message === "start") {
+            console.log("111111111")
+            sendResponse(111)
+            
+        }
+        
+    }
+
+    a() {
+        console.log(1)
+        
+     }
+
 }
 
+// 初始化执行
 new BgClass()
