@@ -1,5 +1,7 @@
-console.log('bg- init ~');
-
+console.log("bg- init ~");
+interface SendResponse<T> {
+    (s: T): void
+}
 
 class BgClass {
 
@@ -9,30 +11,30 @@ class BgClass {
     }
 
     onMessage() {
-        (window as any).chrome.runtime.onMessage.addListener(function (request: any, sender: any, sendResponse: any) {
+        chrome.runtime.onMessage.addListener(function (request: {message: string}, sender: unknown, sendResponse: SendResponse<number>) {
             console.log(request);
             
             // 监听 content 页面打开 信息通知
-            if (request.message == 'start') {
-                console.log('start success ---');
-                sendResponse(1111)
+            if (request.message == "start") {
+                console.log("start success ---");
+                sendResponse(1111);
             }
         
         
 
         
-        })
+        });
     }
 
     init() {
-        console.log('bg- init success ~~~');
-        (window as any).chrome.tabs.query({}, (tabs: Array<object>) => {
+        console.log("bg- init success ~~~");
+        chrome.tabs.query({}, (tabs: Array<object>) => {
          console.log(tabs);
          console.log(111222);
          
-        })
+        });
         
     }
 }
 
-new BgClass()
+new BgClass();
