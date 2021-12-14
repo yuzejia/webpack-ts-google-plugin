@@ -14,14 +14,17 @@ https://www.npmjs.com/package/@types/chrome
 webpack --mode production --config ./webpack.config.ts
 ```
 
+
+
+### 开发说明：
+
 git clone git@github.com:yuzejia/webpack-ts-google-plugin.git
 
 npm install
 
-开发说明：
 manifest.json中.文件的配置按照最后输出的文件格式。ts 只是开发辅助。
 
-dist 输出目录结构：
+#### dist 输出目录结构：
 ```jsvascript
 --dist
     -- html
@@ -30,7 +33,7 @@ dist 输出目录结构：
         -- bg.js
     -- manifest.json
 ```
-manifest.json
+#### manifest.json
 
 ```json
 {
