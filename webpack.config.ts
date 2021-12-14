@@ -1,95 +1,77 @@
 
 
-const path = require('path');
-const glob = require('glob');
+import path from "path";
 import webpack, { Configuration } from "webpack";
 import fs from "fs";
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 // 获取ts 文件夹下的文件自动打包输出
 function entryResolve(): webpack.EntryObject | string[] {
 
-    const tsPath: string = './src/ts/';
-    let tsList: string[] = fs.readdirSync(tsPath);
-    let tsListObj: webpack.EntryObject = {}
+    const tsPath = "./src/ts/";
+    const tsList: string[] = fs.readdirSync(tsPath);
+    const tsListObj: webpack.EntryObject = {};
     for (const p in tsList) {
-        let s = tsList[p].replace(/([.][^.]+)$/, '');
+        const s = tsList[p].replace(/([.][^.]+)$/, "");
         tsListObj[`js/${s}`] = tsPath + tsList[p];
     }
 
-
-    return tsListObj
+    return tsListObj;
 }
 
 
-function config(args: Configuration): Configuration {
-    return {
-        entry: {
-            ...entryResolve()
-        },
-
-        // 出口文件
-        output: {
-            // 
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        resolve: {
-            extensions: ['.ts', '.tsx', '.js']
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    loader: "ts-loader"
-                }
-            ]
-        },
-        mode: 'development',
-        plugins: [
-            new CopyWebpackPlugin({
-                patterns: [{
-                    context: path.resolve(__dirname),
-                    from: "./src/manifest.json",
-                    to: path.resolve(__dirname, './dist/manifest.json')
-                }]
-            }
-
-            )
-        ]
-    }
-}
-
-export default (_env: never, args: Configuration): Configuration[] => {
-    const base = config(args)
+export default (): Configuration[] => {
     return [
         {
-            ...base
+            entry: {
+                ...entryResolve()
+            },
+
+            // 出口文件
+            output: {
+                // 
+                path: path.resolve(__dirname, "./dist"),
+                filename: "[name].js"
+            },
+            resolve: {
+                extensions: [".ts", ".tsx", ".js"]
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.less$/i,
+                        use: [ "style-loader", "css-loader", "less-loader"],
+                    },
+                    {
+                        test: /\.tsx?$/,
+                        loader: "ts-loader"
+                    },
+                   
+                
+            
+
+                ]
+            },
+
+            plugins: [
+                new CopyWebpackPlugin({
+                    patterns: [
+                        {
+                            context: path.resolve(__dirname),
+                            from: "./src/manifest.json",
+                            to: path.resolve(__dirname, "./dist/manifest.json")
+                        },
+                        {
+                            from: "./src/html",
+                            to: path.resolve(__dirname, "./dist/html")
+                        }
+                    ]
+                }
+
+                )
+            ],
+            mode: "development",
         }
 
-    ]
-}
-
-
-// module.exports = {
-//         entry: entryResolve(),
-
-//         // 出口文件
-//         output: {
-//             //
-//             path: path.resolve(__dirname, './dist'),
-//             filename: '[name].js'
-//         },
-//         resolve: {
-//             extensions: ['.ts', '.tsx', '.js']
-//           },
-//         module: {
-//             rules: [
-//                 {
-//                     test: /\.tsx?$/,
-//                     loader: "ts-loader",
-//                 }
-//         ]
-//         },
-//         mode: 'development',
-// } as webpack.Configuration
+    ];
+};
