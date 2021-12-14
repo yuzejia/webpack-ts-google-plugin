@@ -11,7 +11,7 @@ class BgClass {
     }
 
     onMessage() {
-        chrome.runtime.onMessage.addListener(function (request: {message: string}, sender: unknown, sendResponse: SendResponse<number>) {
+        chrome.runtime.onMessage.addListener(function (request: {message: string}, sender: unknown, sendResponse: SendResponse<number | string>) {
             console.log(request)
             
             // 监听 content 页面打开 信息通知
