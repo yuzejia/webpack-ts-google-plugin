@@ -1,1 +1,1 @@
-console.log('main - init -');
+console.log("main - init -");

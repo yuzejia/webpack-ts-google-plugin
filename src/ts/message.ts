@@ -1,17 +1,17 @@
 export default class Message {
     constructor() {
-        console.log('message new init =---');
+        console.log("message new init =---");
         
     }
 
-    setMsg(name: string, data: any) {
-        console.log(name, '---', data);
+    setMsg(name: string, data: object) {
+        console.log(name, "---", data);
         
-        (window as any).chrome.runtime.sendMessage({
+        chrome.runtime.sendMessage({
             message: name,
             data: data
-        }, function(response: any) {
+        }, function(response: string | Array<[]> | object) {
             console.log(response);
-        })
+        });
     }
 }
