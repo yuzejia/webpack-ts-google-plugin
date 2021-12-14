@@ -1,12 +1,12 @@
-import Info from "@/enum/en";
-import Message from "./message";
+import Info from "@/enum/en"
+import Message from "./message"
 
-new Message().setMsg("start", {c:111});
+new Message().setMsg("start", {c:111})
 
 
 function name(params:Info): void {
-    console.log(params);
+    console.log(params)
     
 }
 
-name({name: "yuzejia11"});
+name({name: "yuzejia11"})

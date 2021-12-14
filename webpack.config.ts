@@ -1,22 +1,22 @@
 
 
-import path from "path";
-import webpack, { Configuration } from "webpack";
-import fs from "fs";
-import CopyWebpackPlugin from "copy-webpack-plugin";
+import path from "path"
+import webpack, { Configuration } from "webpack"
+import fs from "fs"
+import CopyWebpackPlugin from "copy-webpack-plugin"
 
 // 获取ts 文件夹下的文件自动打包输出
 function entryResolve(): webpack.EntryObject | string[] {
 
-    const tsPath = "./src/ts/";
-    const tsList: string[] = fs.readdirSync(tsPath);
-    const tsListObj: webpack.EntryObject = {};
+    const tsPath = "./src/ts/"
+    const tsList: string[] = fs.readdirSync(tsPath)
+    const tsListObj: webpack.EntryObject = {}
     for (const p in tsList) {
-        const s = tsList[p].replace(/([.][^.]+)$/, "");
-        tsListObj[`js/${s}`] = tsPath + tsList[p];
+        const s = tsList[p].replace(/([.][^.]+)$/, "")
+        tsListObj[`js/${s}`] = tsPath + tsList[p]
     }
 
-    return tsListObj;
+    return tsListObj
 }
 
 
@@ -73,5 +73,5 @@ export default (): Configuration[] => {
             mode: "development",
         }
 
-    ];
-};
+    ]
+}
