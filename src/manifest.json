@@ -1,0 +1,28 @@
+{
+    "name": "webpack-google-ts",
+    "description": "webpack-google-ts init",
+    "version": "1.0.1",
+    "manifest_version": 2,
+    "browser_action": {
+    },
+    "background": {
+        "scripts": ["./js/bg.js"],
+        "persistent": true
+    },
+   
+    "permissions": [
+        "tabs"
+
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "content_scripts": [{
+        "matches": [
+            "https://api.mabangerp.com/*",
+            "https://www.baidu.com/*"
+        ],
+        "js": [
+            "./js/content.js"
+        ],
+        "run_at": "document_end"
+    }]
+}

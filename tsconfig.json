@@ -1,0 +1,24 @@
+{
+    "include":[
+      "src/**/*",
+      "vue.shim.d.ts"
+    ],
+    "exclude":["node_modules"],
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "lib": [
+        "dom",
+        "es5",
+        "es2015.promise"
+      ],
+      "allowJs": true,
+      "strict": true,
+      "baseUrl": "./",
+      "paths": {
+        "@/*":["src/*"]
+      },
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+    }
+  }
