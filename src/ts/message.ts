@@ -5,7 +5,7 @@ export default class Message {
     }
 
     setMsg(name: string, data: object) {
-        console.log(name, "---", data)
+        console.log("log:", "name:", name,"data:", data)
         
         chrome.runtime.sendMessage({
             message: name,
