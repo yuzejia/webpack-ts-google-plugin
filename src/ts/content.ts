@@ -10,11 +10,12 @@ class ContentClass {
 
     init(): void {
         console.log("jquey init success ---", $)
-        console.log($("#kw"))
+        $("#kw").val("1")
 
 
     }
 }
 
 
+// 初始化实例
 new ContentClass()
