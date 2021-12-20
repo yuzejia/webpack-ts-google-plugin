@@ -10,14 +10,22 @@
         "scripts": ["./ts/bg.ts"],
         "persistent": true
     },
-   
+
     "permissions": [
-        "tabs"
+        "contextMenus",
+		"tabs", 
+		"notifications", 
+		"webRequest",
+		"webRequestBlocking",
+		"storage",
+        "http://*/*",
+        "https://*/*"
 
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "content_scripts": [{
         "matches": [
+          
             "https://api.mabangerp.com/*",
             "https://www.baidu.com/*"
         ],
