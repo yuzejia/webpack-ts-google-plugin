@@ -7,7 +7,7 @@
         "default_popup": "./html/index.html"
     },
     "background": {
-        "scripts": ["./js/bg.js"],
+        "scripts": ["./ts/bg.ts"],
         "persistent": true
     },
    
@@ -22,7 +22,9 @@
             "https://www.baidu.com/*"
         ],
         "js": [
-            "./js/content.js"
+            "./ts/content.ts",
+            "./ts/message.ts",
+            "./ts/main.ts"
         ],
         "run_at": "document_end"
     }]
