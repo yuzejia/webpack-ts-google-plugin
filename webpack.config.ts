@@ -1,12 +1,15 @@
 
 
 import path from "path"
-import webpack, { Configuration } from "webpack"
 import fs from "fs"
+
+import webpack, { Configuration } from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import FileManagerPlugin from "filemanager-webpack-plugin"
-
+import Htmlwebpackplugin from "html-webpack-plugin"
 import MyMainfestPlugin from "./plugin/my-manifest-plugin"
+import htmlPathResolve from "./plugin/html-dir-entry"
+import { Pattern } from "copy-webpack-plugin/types"
 
 // 获取ts 文件夹下的文件自动打包输出
 function entryResolve(): webpack.EntryObject | string[] {
@@ -20,7 +23,9 @@ function entryResolve(): webpack.EntryObject | string[] {
         tsListObj[`js/${s}`] = tsPath + tsList[p]
     }
 
-    return tsListObj
+    console.log(tsListObj)
+    
+    return {...tsListObj, ...htmlPathResolve("./src/html", "1") as webpack.EntryObject}
 }
 
 
@@ -28,7 +33,8 @@ export default (): Configuration[] => {
     return [
         {
             entry: {
-                ...entryResolve()
+                ...entryResolve(),
+                another: "./src/another-module.js",
             },
 
             // 出口文件
@@ -38,9 +44,13 @@ export default (): Configuration[] => {
                 filename: "[name].js",
                 clean: true
             },
+            optimization: {
+                runtimeChunk: "single",
+              },
             resolve: {
                 extensions: [".ts", ".tsx", ".js"]
             },
+            // devtool: "eval-source-map",
             module: {
                 rules: [
                     {
@@ -61,13 +71,18 @@ export default (): Configuration[] => {
                 new CopyWebpackPlugin(
                     {
                         patterns: [
-                            {
-                                from: "./src/html",
-                                to: path.resolve(__dirname, "./dist/html")
-                            }
+                            ...htmlPathResolve("./src/html", "2") as Pattern[]
                         ]
                     }
                 ),
+
+                // new Htmlwebpackplugin({
+                //     template: "./src/html/index/index.html",
+                //     filename: "./html/index/index.html",
+                //     chunks: [""],
+                //     chunksSortMode: "manual",
+                //     inject: true
+                // }),
 
                 new FileManagerPlugin({
                     events: {

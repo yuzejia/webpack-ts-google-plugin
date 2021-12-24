@@ -5,7 +5,7 @@ import fs from "fs"
 class MyMainfestPlugin {
 
   constructor(options = {}) {
-    console.log(options)
+    console.log("options", options)
 
   }
   apply(compiler) {

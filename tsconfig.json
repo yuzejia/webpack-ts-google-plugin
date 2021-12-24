@@ -5,6 +5,7 @@
     ],
     "exclude":["node_modules"],
     "compilerOptions": {
+      "outDir": "./dist",
       "target": "es5",
       "module": "commonjs",
       "lib": [
