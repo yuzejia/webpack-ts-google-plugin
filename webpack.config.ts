@@ -6,7 +6,6 @@ import fs from "fs"
 import webpack, { Configuration } from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import FileManagerPlugin from "filemanager-webpack-plugin"
-import Htmlwebpackplugin from "html-webpack-plugin"
 import MyMainfestPlugin from "./plugin/my-manifest-plugin"
 import htmlPathResolve from "./plugin/html-dir-entry"
 import { Pattern } from "copy-webpack-plugin/types"
@@ -23,8 +22,6 @@ function entryResolve(): webpack.EntryObject | string[] {
         tsListObj[`js/${s}`] = tsPath + tsList[p]
     }
 
-    console.log(tsListObj)
-    
     return {...tsListObj, ...htmlPathResolve("./src/html", "1") as webpack.EntryObject}
 }
 
@@ -65,7 +62,7 @@ export default (): Configuration[] => {
             },
 
             plugins: [
-
+                new webpack.ProgressPlugin(),
                 new MyMainfestPlugin(),
 
                 new CopyWebpackPlugin(
@@ -75,14 +72,6 @@ export default (): Configuration[] => {
                         ]
                     }
                 ),
-
-                // new Htmlwebpackplugin({
-                //     template: "./src/html/index/index.html",
-                //     filename: "./html/index/index.html",
-                //     chunks: [""],
-                //     chunksSortMode: "manual",
-                //     inject: true
-                // }),
 
                 new FileManagerPlugin({
                     events: {
