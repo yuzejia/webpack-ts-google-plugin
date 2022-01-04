@@ -9,7 +9,7 @@ class ContentClass {
     }
 
     init(): void {
-        console.log("jquey init success ---", $)
+        console.log("jquery init success ---", $)
         $("#kw").val("欢迎使用百度~")
     }
 }

@@ -1,6 +1,5 @@
 console.log("main - init -")
 import "./index.less"
-
 class Index {
     constructor() {
         this.init()

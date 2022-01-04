@@ -6,7 +6,7 @@ import fs from "fs"
 import webpack, { Configuration } from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import FileManagerPlugin from "filemanager-webpack-plugin"
-import MyMainfestPlugin from "./plugin/my-manifest-plugin"
+import MyManifestPlugin from "./plugin/my-manifest-plugin"
 import htmlPathResolve from "./plugin/html-dir-entry"
 import { Pattern } from "copy-webpack-plugin/types"
 
@@ -22,7 +22,7 @@ function entryResolve(): webpack.EntryObject | string[] {
         tsListObj[`js/${s}`] = tsPath + tsList[p]
     }
 
-    return {...tsListObj, ...htmlPathResolve("./src/html", "1") as webpack.EntryObject}
+    return { ...tsListObj, ...htmlPathResolve("./src/html", "1") as webpack.EntryObject }
 }
 
 
@@ -31,7 +31,6 @@ export default (): Configuration[] => {
         {
             entry: {
                 ...entryResolve(),
-                another: "./src/another-module.js",
             },
 
             // 出口文件
@@ -41,9 +40,7 @@ export default (): Configuration[] => {
                 filename: "[name].js",
                 clean: true
             },
-            optimization: {
-                runtimeChunk: "single",
-              },
+
             resolve: {
                 extensions: [".ts", ".tsx", ".js"]
             },
@@ -62,9 +59,14 @@ export default (): Configuration[] => {
             },
 
             plugins: [
-                new webpack.ProgressPlugin(),
-                new MyMainfestPlugin(),
 
+                // 打包时间过程-
+                new webpack.ProgressPlugin(),
+
+                // 处理manifest.json
+                new MyManifestPlugin(),
+
+                // 拷贝文件
                 new CopyWebpackPlugin(
                     {
                         patterns: [
@@ -73,6 +75,7 @@ export default (): Configuration[] => {
                     }
                 ),
 
+                // 压缩包
                 new FileManagerPlugin({
                     events: {
                         onEnd: {

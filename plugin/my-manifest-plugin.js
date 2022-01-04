@@ -1,8 +1,7 @@
-import path from "path"
 import fs from "fs"
 
 
-class MyMainfestPlugin {
+class MyManifestPlugin {
 
   constructor(options = {}) {
     console.log("options", options)
@@ -38,4 +37,4 @@ class MyMainfestPlugin {
 
 }
 
-export default MyMainfestPlugin
+export default MyManifestPlugin

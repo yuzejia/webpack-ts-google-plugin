@@ -86,3 +86,4 @@ class BgClass extends BaseClass implements Baseinterface {
 
 // 初始化执行
 new BgClass()
+
