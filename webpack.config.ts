@@ -53,7 +53,7 @@ export default (): Configuration[] => {
                     },
                     {
                         test: /\.tsx?$/,
-                        loader: "ts-loader"
+                        loader: "ts-loader",
                     },
                 ]
             },

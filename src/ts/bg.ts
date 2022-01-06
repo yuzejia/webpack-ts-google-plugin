@@ -1,5 +1,5 @@
-import Baseinterface from "@/enum/base-interface"
-import BaseClass from "./base"
+import Baseinterface from "@/code/enum/base-interface"
+import BaseClass from "../code/base/base"
 import bgExtCLass from "./bg-ext"
 
 class BgClass extends BaseClass implements Baseinterface {
@@ -9,6 +9,8 @@ class BgClass extends BaseClass implements Baseinterface {
         this.init()
         this.onBeforeRequest()
     }
+
+
 
 
 

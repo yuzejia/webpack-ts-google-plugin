@@ -1,11 +1,13 @@
-import Message from "./message"
+import Message from "../code/base/message"
 import $ from "jquery"
-new Message().setMsg("start", { c: 111 })
+import { messageEnum } from "../code/enum/message-enum"
 
 class ContentClass {
 
     constructor() {
         this.init()
+        new Message().sendMessage(messageEnum.start, {})
+
     }
 
     init(): void {

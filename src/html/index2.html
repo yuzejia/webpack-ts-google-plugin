@@ -12,25 +12,72 @@
     </div>
 
     <script>
-    //     function a() {
-    //         var v= 2
-    //         console.log('=========', v);
-    //         function get() {
-    //             v++
-    //             console.log(v);
-    //         }
+       function getLastMonth(n) {
+        console.log(n)
+        const date = new Date("2022-2-3")
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1   // 当前月份
+        
+        // 一月份 需要往 上一年 推日期
+        if(month === 1) {
+            year = year - 1
+            month = 12 - (n -1)
+        } else {
 
-    //         return get
-    //     }
-    //    let f = a()
-    //    f()
-    //    f()
+        }
+    
 
-    //    let f2 = f
-    //    f = null
+     
+        return year+"年"+month+"月"
+    
+    }
+     let a = getLastMonth(2)
+        console.log(a);
 
-    //    f2()
-    //    f2()
+        function getLastAllMonthByNumber(number, time) {
+        let months = [time]; //最后一个月是传过来的当前月
+        for (let i = 0; i < (number-1); i++) {
+            let firstDate = months[0] + '-01 00:00:00'; //月份的第一天
+            let lastUnix = dateToUnix(firstDate) - 1; //当月第一天的时间戳-1s，得到上个月时间戳
+            let lastMonth = unixToDate(lastUnix, "YYYY-MM"); //根据上个月时间戳，直接获取上个月日期（默认返回YYYY-MM-DD H:m:s格式）
+            months.unshift(lastMonth); //追加到已有月份的前面
+        }
+        return months; //返回结果数据
+    }
+     //日期格式转时间戳：返回日期对应的（10位数）时间戳
+     function dateToUnix(datetime) {
+        let tmp_datetime = datetime.replace(/:/g,'-');
+        tmp_datetime = tmp_datetime.replace(/ /g,'-');
+        let arr = tmp_datetime.split("-");
+        let now = new Date(Date.UTC(arr[0], arr[1]-1, arr[2], arr[3]-8, arr[4], arr[5]));
+        return parseInt((now.getTime()) / 1000);
+    }
+
+    //时间戳转日期格式：默认返回YYYY-MM-DD H:m:s格式的日期数据
+    function unixToDate(unix, formatStr) {
+        let date = new Date(parseInt(unix) * 1000);
+        let Y = date.getFullYear();
+        let M = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+        let D = date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate();
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let s = date.getSeconds();
+        formatStr = formatStr || 'YYYY-MM-DD H:m:s';
+        return formatStr.replace(/YYYY|MM|DD|H|m|s/ig, function (matches) {
+            return ({
+                YYYY: Y,
+                MM: M,
+                DD: D,
+                H: h,
+                m: m,
+                s: s
+            })[matches];
+        });
+    }
+
+
+    let months = getLastAllMonthByNumber(5, '2022-01');
+    console.log(months);
     </script>
 </body>
 </html>
