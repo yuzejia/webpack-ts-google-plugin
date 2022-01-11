@@ -31,7 +31,6 @@
         ],
         "js": [
             "./ts/content.ts",
-            "./ts/message.ts",
             "./ts/main.ts"
         ],
         "run_at": "document_end"
