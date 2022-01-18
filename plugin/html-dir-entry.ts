@@ -7,7 +7,7 @@ import path from "path"
 import { Pattern } from "copy-webpack-plugin/types"
 type returnHtmlPathResolveType = Pattern[] | webpack.EntryObject 
 function htmlPathResolve(entry: string, type: string): returnHtmlPathResolveType {
-    
+    console.time()
     const _entryObject: returnHtmlPathResolveType = {}
     const _patternList: returnHtmlPathResolveType = []
 
@@ -37,6 +37,7 @@ function htmlPathResolve(entry: string, type: string): returnHtmlPathResolveType
         }
 
     }
+    console.timeEnd()
     return type === "1" ? _entryObject : _patternList
 
 }

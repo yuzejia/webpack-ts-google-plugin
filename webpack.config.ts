@@ -5,14 +5,12 @@ import fs from "fs"
 
 import webpack, { Configuration } from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import FileManagerPlugin from "filemanager-webpack-plugin"
 import MyManifestPlugin from "./plugin/my-manifest-plugin"
 import htmlPathResolve from "./plugin/html-dir-entry"
 import { Pattern } from "copy-webpack-plugin/types"
 
 // 获取ts 文件夹下的文件自动打包输出
 function entryResolve(): webpack.EntryObject | string[] {
-
     const tsPath = "./src/ts/"
     const tsList: string[] = fs.readdirSync(tsPath)
     const tsListObj: webpack.EntryObject = {}
@@ -21,8 +19,8 @@ function entryResolve(): webpack.EntryObject | string[] {
         const s = tsList[p].replace(/([.][^.]+)$/, "")
         tsListObj[`js/${s}`] = tsPath + tsList[p]
     }
-
     return { ...tsListObj, ...htmlPathResolve("./src/html", "1") as webpack.EntryObject }
+    
 }
 
 
@@ -50,10 +48,14 @@ export default (): Configuration[] => {
                     {
                         test: /\.less$/i,
                         use: ["style-loader", "css-loader", "less-loader"],
+                        include: [path.resolve("src")],
+                        exclude: /node_modules/
                     },
                     {
                         test: /\.tsx?$/,
                         loader: "ts-loader",
+                        include: [path.resolve("src")],
+                        exclude: /node_modules/
                     },
                 ]
             },
@@ -76,15 +78,15 @@ export default (): Configuration[] => {
                 ),
 
                 // 压缩包
-                new FileManagerPlugin({
-                    events: {
-                        onEnd: {
-                            archive: [
-                                { source: "./dist", destination: path.resolve(__dirname, "./dist/main.zip") }
-                            ]
-                        }
-                    }
-                })
+                // new FileManagerPlugin({
+                //     events: {
+                //         onEnd: {
+                //             archive: [
+                //                 { source: "./dist", destination: path.resolve(__dirname, "./dist/main.zip") }
+                //             ]
+                //         }
+                //     }
+                // })
             ],
             mode: "development",
         }

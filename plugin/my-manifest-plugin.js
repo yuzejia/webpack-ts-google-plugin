@@ -27,7 +27,7 @@ class MyManifestPlugin {
 
         mainTextObj.content_scripts[0].js = _contentScriptsJs
 
-        fs.writeFileSync("./dist/manifest.json", JSON.stringify(mainTextObj))
+        fs.writeFileSync("./dist/manifest.json", JSON.stringify(mainTextObj, "", "\t"))
 
         console.log("manifest.json 编译完成~~~")
 
