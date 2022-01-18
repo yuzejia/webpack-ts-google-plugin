@@ -1,10 +1,11 @@
 
 
-import path from "path"
+import path, { resolve } from "path"
 import fs from "fs"
 
 import webpack, { Configuration } from "webpack"
 import CopyWebpackPlugin from "copy-webpack-plugin"
+import FileManagerPlugin from "filemanager-webpack-plugin"
 import MyManifestPlugin from "./plugin/my-manifest-plugin"
 import htmlPathResolve from "./plugin/html-dir-entry"
 import { Pattern } from "copy-webpack-plugin/types"
@@ -25,6 +26,8 @@ function entryResolve(): webpack.EntryObject | string[] {
 
 
 export default (): Configuration[] => {
+    console.log(process.argv)
+    
     return [
         {
             entry: {
@@ -45,20 +48,27 @@ export default (): Configuration[] => {
             // devtool: "eval-source-map",
             module: {
                 rules: [
+                
                     {
                         test: /\.less$/i,
-                        use: ["style-loader", "css-loader", "less-loader"],
+                        use: ["style-loader", "css-loader","postcss-loader", "less-loader"],
                         include: [path.resolve("src")],
                         exclude: /node_modules/
                     },
                     {
+                        test: /\.(png|jpg|gif)$/i,
+                        type: "asset/resource"
+                    },
+                    {
                         test: /\.tsx?$/,
-                        loader: "ts-loader",
+                        use: ["babel-loader?cacheDirectory=true", "ts-loader"],
                         include: [path.resolve("src")],
                         exclude: /node_modules/
                     },
                 ]
             },
+          
+
 
             plugins: [
 
@@ -78,17 +88,27 @@ export default (): Configuration[] => {
                 ),
 
                 // 压缩包
-                // new FileManagerPlugin({
-                //     events: {
-                //         onEnd: {
-                //             archive: [
-                //                 { source: "./dist", destination: path.resolve(__dirname, "./dist/main.zip") }
-                //             ]
-                //         }
-                //     }
-                // })
+                new FileManagerPlugin({
+                    events: {
+                        onEnd: {
+                            archive: [
+                                { source: "./dist", destination: path.resolve(__dirname, "./dist/main-" + new Date().getTime() + ".zip") }
+                            ]
+                        }
+                    }
+                })
             ],
             mode: "development",
+
+            // 打包缓存
+            cache: {
+                type: "filesystem", // 启用持久化缓存
+                cacheDirectory: resolve(".temp_cache"), // 缓存文件存放的位置
+                buildDependencies: { // 缓存失效的配置
+                  config: [__filename]
+                }
+              }
+            
         }
 
     ]

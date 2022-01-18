@@ -8,6 +8,7 @@ class Index {
     init() {
         const box = document.getElementById("index")
         // (box as HTMLElement).innerHTML = "google dom";
+        
         console.log(box)
     }
 
