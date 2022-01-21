@@ -1,4 +1,4 @@
-import { messageEnum, messageEnumType } from "../enum/message-enum"
+import { messageEnumType } from "../enum/message-enum"
 
 interface messageFace {
     sendMessage: (name: messageEnumType , data: object)=> void
@@ -12,8 +12,6 @@ export default class Message implements messageFace {
 
     // 发送消息数据 ---
     sendMessage(name: messageEnumType, data: object): void {
-        console.log("log:", "name:", name,"data:", data)
-        
         chrome.runtime.sendMessage({
             message: name,
             data: data

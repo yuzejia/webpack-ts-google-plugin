@@ -1,6 +1,5 @@
 import Baseinterface from "@/code/enum/base-interface"
 import BaseClass from "../code/base/base"
-import bgExtCLass from "./bg-ext"
 
 class BgClass extends BaseClass implements Baseinterface {
 
@@ -12,13 +11,16 @@ class BgClass extends BaseClass implements Baseinterface {
 
 
 
-
+    /**
+    * @param {string} name 姓名
+    * @param {number} age 年龄
+    */
 
     init() {
         console.log("bg- init success ~~~")
-        bgExtCLass.getInstance().init()
 
         // 获取 窗口 tabs --
+        
         chrome.tabs.query({}, (result: chrome.tabs.Tab[]): void => {
             console.log(result[0].id)
         })
