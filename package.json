@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev-v": "vite",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production --config ./webpack.config.ts ",
-    "watch": "webpack --mode production --config ./webpack.config.ts -w",
+    "watch": "webpack --config ./webpack.config.ts -w",
     "zip": "webpack --mode production --config ./build.config.ts"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
     "@types/chrome": "0.0.171",
     "@types/jquery": "^3.5.10",
     "@types/node": "^16.11.12",
+    "@types/webpack-bundle-analyzer": "^4.4.1",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "babel-loader": "^8.2.3",
@@ -41,7 +43,9 @@
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.3",
-    "webpack": "^5.65.0"
+    "vite": "^2.7.13",
+    "webpack": "^5.65.0",
+    "webpack-bundle-analyzer": "^4.5.0"
   },
   "browserslist": [
     "defaults",

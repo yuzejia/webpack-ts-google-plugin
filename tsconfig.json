@@ -1,29 +1,41 @@
 {
-    "include":[
-      "src/**/*",
-      "typings.d.ts"
+  // include 配置可被编译的目录，文件。
+  "include":[
+    "src/**/*",
+    "typings.d.ts"
+  ],
+
+  // include 过滤掉不被编译的 目录
+  "exclude":["node_modules"],
+  "compilerOptions": {
+    // "incremental": true,
+    // "tsBuildInfoFile": "./buildfile",
+    "outDir": "./dist",   // 输出目录 参考：https://www.typescriptlang.org/zh/tsconfig#rootDir
+    "target": "es5",      // 编译目标 参考：https://www.typescriptlang.org/zh/tsconfig#target
+    "module": "commonjs",  // 设置程序的模块系统。
+    // "declaration": true, // 生成声明文件，开启后会自动生成声明文件
+    // "declarationDir": "./file", // 指定生成声明文件存放目录
+    // lib 编译过程中需要引入的库文件的列表。可能的值为： 参考：https://www.typescriptlang.org/zh/tsconfig#lib
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise"
     ],
-    "exclude":["node_modules"],
-    "compilerOptions": {
-      "outDir": "./dist",
-      "target": "es5",
-      "module": "commonjs",
-      "lib": [
-        "dom",
-        "es5",
-        "es2015.promise"
-      ],
-      "allowJs": true,
-      "strict": true,
-      "baseUrl": "./",
-      "paths": {
-        "@/*":["src/*"]
-      },
-      "esModuleInterop": true,
-      "experimentalDecorators": true,
-      "types": [
-        "chrome",
-        "node"
-      ]
-    }
+    "allowJs": true,   // 允许编译javascript文件。
+    "strict": true,    // 以严格模式解析并为每个源文件生成 "use strict"语句
+    "baseUrl": "./",  // 解析非相对模块名的基准目录
+    "paths": {        // 一些将模块导入重新映射到相对于 baseUrl 路径的配置。开发中用来指定路径别名便于文件路径引用。参考：https://www.typescriptlang.org/zh/tsconfig#paths
+      "@/*":["src/*"],
+      "@code/*" :["src/code/*"]
+    },
+    "esModuleInterop": true,   // 开启将修复模块导入存在的某些问题 参考：https://www.typescriptlang.org/zh/tsconfig#esModuleInterop
+    "experimentalDecorators": true,   // 启用对装饰器的实验性支持，这是 TC39 标准化过程的第 2 阶段。 参考：https://www.typescriptlang.org/zh/tsconfig#experimentalDecorators
+
+    // 
+    "types": [   // 加载的声明文件包
+      "chrome",
+      "node",
+      "jquery"
+    ]
   }
+}

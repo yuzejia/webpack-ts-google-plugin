@@ -1,5 +1,5 @@
 import Baseinterface from "@/code/enum/base-interface"
-import BaseClass from "../code/base/base"
+import BaseClass from "@code/base/base"
 
 class BgClass extends BaseClass implements Baseinterface {
 

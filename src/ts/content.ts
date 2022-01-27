@@ -1,6 +1,5 @@
-import Message from "../code/base/message"
-import $ from "jquery"
-import { messageEnum } from "../code/enum/message-enum"
+import Message from "@code/base/message"
+import { messageEnum } from "@code/enum/message-enum"
 
 class ContentClass {
 
