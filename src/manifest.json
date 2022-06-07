@@ -30,8 +30,7 @@
             "https://www.baidu.com/*"
         ],
         "js": [
-            "./ts/content.ts",
-            "./ts/main.ts"
+            "./ts/content.ts"
         ],
         "run_at": "document_end"
     }]

@@ -43,7 +43,6 @@ export default (): Configuration[] => {
               "less-loader",
             ],
             include: [path.resolve("src")],
-            exclude: /node_modules/,
           },
           {
             test: /\.(png|jpg|gif)$/i,
@@ -67,7 +66,7 @@ export default (): Configuration[] => {
         new webpack.ProvidePlugin({ $: "jquery"}),
 
         // 处理manifest.json
-        new MyManifestPlugin(),
+         new MyManifestPlugin(),
 
         // 拷贝文件
         new CopyWebpackPlugin({
@@ -91,11 +90,11 @@ export default (): Configuration[] => {
           },
         }),
       ],
-      optimization: {
-        splitChunks: {
-          chunks: "all",
-        }
-      }, 
+      // optimization: {
+      //   splitChunks: {
+      //     chunks: "all",
+      //   }
+      // }, 
 
 
       mode: "development",
